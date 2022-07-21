@@ -1,3 +1,5 @@
+7/19/2022
+
 Context enables Flask to make certain variables globally accessible to a thread without interfering in other threads.
 
 Two contexts in Flask: application context and request context.
@@ -40,3 +42,4 @@ So you could use the g application context to store the logged-in user info so a
     g.user
 the view function can later be used to see what is contained in g.user
 
+7/21/2022
