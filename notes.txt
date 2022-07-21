@@ -1,6 +1,6 @@
-Context enables flask to make certain variables globally accessible to a thread without interfering in other threads.
+Context enables Flask to make certain variables globally accessible to a thread without interfering in other threads.
 
-Two contexts in flask: application context and request context.
+Two contexts in Flask: application context and request context.
 
 ------------------------------------------------------------------------------------------------------------------------------
 current_app     Application context     The application instance for the active application.
@@ -11,4 +11,32 @@ request         Request context         The request object, which encapsulates t
 session         Request context         The user session, a dictionary that the application can use to store values that are
                                         “remembered” between requests.
 ------------------------------------------------------------------------------------------------------------------------------
+
+the application context variables become available to the thread once they are pushed
+so, if you try to access those variables beforehand, you generate an error
+    app.app_context().push()
+
+When receiving a request from a client, Flask checks the url in the request in the apps url map
+Flask builds this using the app.route decorators or the nondecorator version app.add_url_rule()
+        app.url_map
+'/static/<filename>' route is a route added by Flask for access to static files
+the others should be the decorators defined in the application
+
+Flask attaches methods to each route so that different request methods sent to the same URL can be handled by different view functions
+    HEAD, OPTIONS, GET, etc.
+The HEAD and OPTIONS route methods are automatically managed by Flask
+
+Flask gives the option to register common functions before or after a request is dispatched to view a function.
+So you don't have to create the same section of code for accessing the database for each request, as an example.
+
+    before_first_request:   Register a function to run before the first request is
+                            handled.
+    before_request:         Register a function to run before each request.
+    after_request:          Register a function to run after each request, if no unhandled exceptions
+                            occurred.
+    teardown_request:       Register
+
+So you could use the g application context to store the logged-in user info so as not to have to do it again.
+    g.user
+the view function can later be used to see what is contained in g.user
 
