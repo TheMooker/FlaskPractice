@@ -1,1 +1,1 @@
-Following through Flask Web Development by Miguel Grinberg
+Following Flask Web Development by Miguel Grinberg
