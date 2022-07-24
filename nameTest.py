@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response, redirect
 
 app = Flask(__name__)
 
@@ -14,11 +14,22 @@ app = Flask(__name__)
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
 # request cannot be global since in a multithreaded server, multiple requests from multiple clients are happening simultaneously.
 # each thread must see a different object in request.
-@app.route('/', methods=["POST"])
+@app.route('/', methods=["POST", "GET"])
 def index():
     user_agent = request.headers.get('User-Agent')
     return '<p>Your browser is %s</p>' %user_agent
 
+# creating a response object that also sets a cookie.
+@app.route('/response', methods=['POST'])
+def responseIndex():
+    response = make_response('<h1>This document carries a cookie!</h1>')
+    response.set_cookie('answer', '42')
+    return response
+
+# a redirect endpoint
+@app.route('/redirect', methods=['POST', "GET"])
+def redirectIndex():
+    return redirect("http://example.com")
 
 @app.route('/user/<name>', methods=["POST"])
 def user(name):
