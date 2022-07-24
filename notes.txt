@@ -40,6 +40,19 @@ So you don't have to create the same section of code for accessing the database 
 
 So you could use the g application context to store the logged-in user info so as not to have to do it again.
     g.user
-the view function can later be used to see what is contained in g.user
+The view function can later be used to see what is contained in g.user
 
 7/21/2022
+
+View function in flask expects the return value to be the response to the request
+http protocol requires more than just a string as an html page
+    return <h1>Bad request</h1>, 400
+
+To export an environment variable to the WSL path: export variableName=variable
+    So to add FLASK_ENV to development (debug mode=on; production for debug mode=off) or FLASK_APP to api.py (to be able to use flask run; only if the file is not named app.py or wsgi.py):
+        export FLASK_ENV=development and export FLASK_APP=api.py
+
+To see environment variables in WSL: printenv
+
+To run the file in flask on all addresses: flask run --host=0.0.0.0
+
